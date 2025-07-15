@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- google fonts -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+    <!-- css -->
+    <link rel="stylesheet" href="/index.css">
+    <title>Chkoba - Cards Game</title>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <button id="new-game" class="btn">New Game</button>
+            <p id="remaining-cards">Remaining Cards: 52</p>
+        </header>
+
+        <h1 class="title" id="title">Card Game</h1>
+
+        <main>
+            <!-- bot section -->
+            <div class="section bot-section">
+                <div class="avatar">
+                    <img src="/images/players/bot.png" alt="bot icon">
+                    <h2>Bot:  <span id="bot-score">15</span></h2>
+                </div>
+                <div class="cards" id="bot-cards">
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                </div>
+            </div>
+            <!-- play area -->
+             <div class="play-area">
+                <button class="draw-card-btn" id="draw-card-btn">
+                    <img src="/images/card.png" alt="draw card icon">
+                    <p>Draw Cards</p>
+                </button>
+                <div class="choices">
+                    <div class="card" id="bot-choice"></div>
+                    <div class="card" id="player-choice"></div>
+                </div>
+             </div>
+            <!-- player section -->
+            <div class="section bot-section">
+                <div class="avatar">
+                    <img src="/images/players/player.png" alt="player icon">
+                    <h2>You:  <span id="player-score">22</span></h2>
+                </div>
+                <div class="cards" id="player-cards">
+                    <div class="card"></div>
+                    <div class="card"></div>
+                    <div class="card"></div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</body>
+</html>

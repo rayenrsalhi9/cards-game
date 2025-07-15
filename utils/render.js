@@ -13,10 +13,10 @@ export function renderCards(botCards, playerCards, botCardsArr, playerCardsArr) 
                 <img src="${el.image}" alt="card">
             </div>
     `).join('')
-    playerCards.innerHTML = playerCardsArr.map(el => `
-            <div class="card" data-card-value="${el.value}">
-                <button data-card-value="${el.value}">
-                    <img src="${el.image}" alt="card" data-card-value="${el.value}">
+    playerCards.innerHTML = playerCardsArr.map((el, index) => `
+            <div class="card" data-card-value="${el.value}" data-card-index="${index}">
+                <button data-card-value="${el.value}" data-card-index="${index}">
+                    <img src="${el.image}" alt="card" data-card-value="${el.value}" data-card-index="${index}">
                 </button>
             </div>
     `).join('')

@@ -28,6 +28,9 @@ let cardsArr = []
 let botCardsArr = []
 let playerCardsArr = []
 
+// game points system
+const points = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING', 'ACE']
+
 checkRemainingCards()
 
 // event listeners
@@ -79,11 +82,13 @@ function fillCardsArrays() {
 }
 
 function playCard(e) {
-    const playedCard = playerCardsArr.find(el => el.value === e.target.dataset.cardValue)
+    const playedCard = playerCardsArr.find((el, index) => {
+        return el.value === e.target.dataset.cardValue && index === parseInt(e.target.dataset.cardIndex)
+    })
     playerChoice.innerHTML = `
-        <div class="card" data-card-value="${playedCard.value}">
-            <button data-card-value="${playedCard.value}">
-                <img src="${playedCard.image}" alt="card" data-card-value="${playedCard.value}">
+        <div class="card">
+            <button>
+                <img src="${playedCard.image}" alt="played card">
             </button>
         </div>
     `
@@ -92,12 +97,28 @@ function playCard(e) {
 
     const botPlayedCard = botCardsArr[Math.floor(Math.random() * botCardsArr.length)]
     botChoice.innerHTML = `
-        <div class="card" data-card-value="${botPlayedCard.value}">
-            <button data-card-value="${botPlayedCard.value}">
-                <img src="${botPlayedCard.image}" alt="card" data-card-value="${botPlayedCard.value}">
+        <div class="card">
+            <button>
+                <img src="${botPlayedCard.image}" alt="bot played card">
             </button>
         </div>
     `
     botCardsArr = botCardsArr.filter(el => el.value !== botPlayedCard.value)
     renderCards(botCards, playerCards, botCardsArr, playerCardsArr)
+
+    title.textContent = decideRoundWinner(playedCard, botPlayedCard)
+    renderScores(botScore, playerScore, botScoreValue, playerScoreValue)
+}
+
+function decideRoundWinner(playedCard, botPlayedCard) {
+    let winner;
+    const playerPoints = points.indexOf(playedCard.value)
+    const botPoints = points.indexOf(botPlayedCard.value)
+    winner = playerPoints > botPoints ? 'You won this round!' :
+    botPoints > playerPoints ? 'Bot won this round!' :
+    'Tie'
+    winner === 'You won this round!' ? playerScoreValue ++ :
+    winner === 'Bot won this round!' ? botScoreValue ++ :
+    'Draw'
+    return winner
 }

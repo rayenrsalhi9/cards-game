@@ -55,12 +55,14 @@ drawCardBtn.addEventListener('click', () => {
     fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=6`)
     .then(res => res.json())
     .then(data => {
+        title.textContent = 'Playing Round'
+        hidePlayersChoices()
         remainingCardsValue = data.remaining
         renderRemainingCards(remainingCards, remainingCardsValue)
-        checkRemainingCards()
         cardsArr = data.cards
         fillCardsArrays()
         renderCards(botCards, playerCards, botCardsArr, playerCardsArr)
+        checkRemainingCards()
     })
 })
 
@@ -70,7 +72,9 @@ function resetScore() {
 }
 
 function checkRemainingCards() {
-    drawCardBtn.style.display = !deckId || remainingCardsValue === 0 ? 'none' : 'flex'
+    drawCardBtn.style.display = !deckId || 
+    remainingCardsValue === 0  ||
+    (deckId && remainingCardsValue > 0 && (botCardsArr.length > 0 && playerCardsArr.length > 0)) ? 'none' : 'flex'
 }
 
 function fillCardsArrays() {
@@ -92,7 +96,7 @@ function playCard(e) {
             </button>
         </div>
     `
-    playerCardsArr = playerCardsArr.filter(el => el.value !== playedCard.value)
+    playerCardsArr = playerCardsArr.filter(el => el !== playedCard)
     renderCards(botCards, playerCards, botCardsArr, playerCardsArr)
 
     const botPlayedCard = botCardsArr[Math.floor(Math.random() * botCardsArr.length)]
@@ -103,11 +107,13 @@ function playCard(e) {
             </button>
         </div>
     `
-    botCardsArr = botCardsArr.filter(el => el.value !== botPlayedCard.value)
+    botCardsArr = botCardsArr.filter(el => el !== botPlayedCard)
     renderCards(botCards, playerCards, botCardsArr, playerCardsArr)
 
     title.textContent = decideRoundWinner(playedCard, botPlayedCard)
     renderScores(botScore, playerScore, botScoreValue, playerScoreValue)
+
+    checkRemainingCards()
 }
 
 function decideRoundWinner(playedCard, botPlayedCard) {
@@ -120,4 +126,9 @@ function decideRoundWinner(playedCard, botPlayedCard) {
     winner === 'You won this round!' && playerScoreValue ++
     winner === 'Bot won this round!' && botScoreValue ++
     return winner
+}
+
+function hidePlayersChoices() {
+    playerChoice.innerHTML = ''
+    botChoice.innerHTML = ''
 }

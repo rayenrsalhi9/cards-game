@@ -1,4 +1,4 @@
-import { renderRemainingCards, renderScores } from "./utils/render.js"
+import { renderRemainingCards, renderScores, renderCards } from "./utils/render.js"
 
 // buttons
 const newGameBtn = document.getElementById('new-game')
@@ -23,9 +23,18 @@ let remainingCardsValue;
 let botScoreValue = 0;
 let playerScoreValue = 0;
 
+// cards
+let cardsArr = []
+let botCardsArr = []
+let playerCardsArr = []
+
 checkRemainingCards()
 
 // event listeners
+document.addEventListener('click', (e) => {
+    e.target.dataset.index && console.log(e.target.dataset.index)
+})
+
 newGameBtn.addEventListener('click', () => {
     fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
     .then(res => res.json())
@@ -46,6 +55,9 @@ drawCardBtn.addEventListener('click', () => {
         remainingCardsValue = data.remaining
         renderRemainingCards(remainingCards, remainingCardsValue)
         checkRemainingCards()
+        cardsArr = data.cards
+        fillCardsArrays()
+        renderCards(botCards, playerCards, botCardsArr, playerCardsArr)
     })
 })
 
@@ -56,4 +68,12 @@ function resetScore() {
 
 function checkRemainingCards() {
     drawCardBtn.style.display = !deckId || remainingCardsValue === 0 ? 'none' : 'flex'
+}
+
+function fillCardsArrays() {
+    cardsArr.forEach((el, index) => {
+        index % 2 === 0 ?
+        botCardsArr.push(el.image) :
+        playerCardsArr.push(el.image)
+    })
 }

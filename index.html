@@ -16,7 +16,7 @@
 
         <header>
             <button id="new-game" class="btn">New Game</button>
-            <p id="remaining-cards">Remaining Cards: 52</p>
+            <p id="remaining-cards"></p>
         </header>
 
         <h1 class="title" id="title">Card Game</h1>
@@ -26,7 +26,7 @@
             <div class="section bot-section">
                 <div class="avatar">
                     <img src="/images/players/bot.png" alt="bot icon">
-                    <h2>Bot:  <span id="bot-score">15</span></h2>
+                    <h2 id="bot-score"></h2>
                 </div>
                 <div class="cards" id="bot-cards">
                     <div class="card"></div>
@@ -49,7 +49,7 @@
             <div class="section bot-section">
                 <div class="avatar">
                     <img src="/images/players/player.png" alt="player icon">
-                    <h2>You:  <span id="player-score">22</span></h2>
+                    <h2 id="player-score"></h2>
                 </div>
                 <div class="cards" id="player-cards">
                     <div class="card"></div>
@@ -60,5 +60,7 @@
         </main>
 
     </div>
+
+    <script type="module" src="index.js"></script>
 </body>
 </html>

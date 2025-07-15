@@ -36,6 +36,7 @@ checkRemainingCards()
 // event listeners
 document.addEventListener('click', (e) => {
     e.target.dataset.cardValue && playCard(e)
+    remainingCardsValue === 0 && botCardsArr == [] && playerCardsArr == [] && announceWinner()
 })
 
 newGameBtn.addEventListener('click', () => {
@@ -126,6 +127,12 @@ function decideRoundWinner(playedCard, botPlayedCard) {
     winner === 'You won this round!' && playerScoreValue ++
     winner === 'Bot won this round!' && botScoreValue ++
     return winner
+}
+
+function announceWinner() {
+    title.textContent = playerScoreValue > botScoreValue ? 'Congrats! You did it' :
+    botScoreValue > playerScoreValue ? 'Bot won the game!' :
+    'This game ends on tie.'
 }
 
 function hidePlayersChoices() {

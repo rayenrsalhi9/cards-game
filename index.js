@@ -32,7 +32,7 @@ checkRemainingCards()
 
 // event listeners
 document.addEventListener('click', (e) => {
-    e.target.dataset.index && console.log(e.target.dataset.index)
+    e.target.dataset.cardValue && console.log(e.target.dataset.cardValue)
 })
 
 newGameBtn.addEventListener('click', () => {
@@ -73,7 +73,7 @@ function checkRemainingCards() {
 function fillCardsArrays() {
     cardsArr.forEach((el, index) => {
         index % 2 === 0 ?
-        botCardsArr.push(el.image) :
-        playerCardsArr.push(el.image)
+        botCardsArr.push({image: el.image, value: el.value}) :
+        playerCardsArr.push({image: el.image, value: el.value})
     })
 }

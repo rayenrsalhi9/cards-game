@@ -32,7 +32,7 @@ checkRemainingCards()
 
 // event listeners
 document.addEventListener('click', (e) => {
-    e.target.dataset.cardValue && console.log(e.target.dataset.cardValue)
+    e.target.dataset.cardValue && playCard(e)
 })
 
 newGameBtn.addEventListener('click', () => {
@@ -76,4 +76,28 @@ function fillCardsArrays() {
         botCardsArr.push({image: el.image, value: el.value}) :
         playerCardsArr.push({image: el.image, value: el.value})
     })
+}
+
+function playCard(e) {
+    const playedCard = playerCardsArr.find(el => el.value === e.target.dataset.cardValue)
+    playerChoice.innerHTML = `
+        <div class="card" data-card-value="${playedCard.value}">
+            <button data-card-value="${playedCard.value}">
+                <img src="${playedCard.image}" alt="card" data-card-value="${playedCard.value}">
+            </button>
+        </div>
+    `
+    playerCardsArr = playerCardsArr.filter(el => el.value !== playedCard.value)
+    renderCards(botCards, playerCards, botCardsArr, playerCardsArr)
+
+    const botPlayedCard = botCardsArr[Math.floor(Math.random() * botCardsArr.length)]
+    botChoice.innerHTML = `
+        <div class="card" data-card-value="${botPlayedCard.value}">
+            <button data-card-value="${botPlayedCard.value}">
+                <img src="${botPlayedCard.image}" alt="card" data-card-value="${botPlayedCard.value}">
+            </button>
+        </div>
+    `
+    botCardsArr = botCardsArr.filter(el => el.value !== botPlayedCard.value)
+    renderCards(botCards, playerCards, botCardsArr, playerCardsArr)
 }

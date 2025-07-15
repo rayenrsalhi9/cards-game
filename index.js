@@ -117,8 +117,7 @@ function decideRoundWinner(playedCard, botPlayedCard) {
     winner = playerPoints > botPoints ? 'You won this round!' :
     botPoints > playerPoints ? 'Bot won this round!' :
     'Tie'
-    winner === 'You won this round!' ? playerScoreValue ++ :
-    winner === 'Bot won this round!' ? botScoreValue ++ :
-    'Draw'
+    winner === 'You won this round!' && playerScoreValue ++
+    winner === 'Bot won this round!' && botScoreValue ++
     return winner
 }

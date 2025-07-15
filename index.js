@@ -17,10 +17,13 @@ const playerChoice = document.getElementById('player-choice')
 const botChoice = document.getElementById('bot-choice')
 
 let deckId;
+let remainingCardsValue;
 
 // initial scores
 let botScoreValue = 0;
 let playerScoreValue = 0;
+
+checkRemainingCards()
 
 // event listeners
 newGameBtn.addEventListener('click', () => {
@@ -28,13 +31,29 @@ newGameBtn.addEventListener('click', () => {
     .then(res => res.json())
     .then(data => {
         deckId = data.deck_id
+        remainingCardsValue = data.remaining
         resetScore()
-        renderRemainingCards(remainingCards, data.remaining)
+        renderRemainingCards(remainingCards, remainingCardsValue)
         renderScores(botScore, playerScore, botScoreValue, playerScoreValue)
+        checkRemainingCards()
+    })
+})
+
+drawCardBtn.addEventListener('click', () => {
+    fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=6`)
+    .then(res => res.json())
+    .then(data => {
+        remainingCardsValue = data.remaining
+        renderRemainingCards(remainingCards, remainingCardsValue)
+        checkRemainingCards()
     })
 })
 
 function resetScore() {
     botScoreValue = 0
     playerScoreValue = 0
+}
+
+function checkRemainingCards() {
+    drawCardBtn.style.display = !deckId || remainingCardsValue === 0 ? 'none' : 'flex'
 }

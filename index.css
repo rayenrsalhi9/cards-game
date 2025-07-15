@@ -156,3 +156,8 @@ header {
         gap: 0.5em;
     }
 }
+
+/* utility classes */
+.hidden {
+    display: none;
+}
